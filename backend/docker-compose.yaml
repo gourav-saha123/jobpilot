@@ -1,0 +1,40 @@
+services:
+  app:
+    build: .
+    container_name: aisocialmedia
+    # Wait for the database to be ready before starting the app
+    restart: always
+    depends_on:
+      - db
+    # ⚠️ CRITICAL: Run migrations first, then start the server
+    command: >
+      sh -c "until nc -z -v -w30 db 5432; do echo 'Waiting for database...'; sleep 1; done; npx prisma migrate deploy && node src/server.js"
+    environment:
+      # Note: The host is 'db' (the name of the database service below)
+      - DATABASE_URL=postgresql://postgres:postgres123@db:5432/aisocialmedia
+      - SECRET_KEY=asm123
+      - NODE_ENV=production
+      - PORT=5003
+    ports:
+      - "5003:5003"
+    volumes:
+      # Mounts your current folder to /app so you can see changes (Good for Dev/Testing)
+      # Remove this line for actual Production deployment
+      - .:/app
+      # ⚠️ KEEPS the container's node_modules (preventing OS conflicts)
+      - /app/node_modules
+
+  db:
+    image: postgres:15-alpine  # Upgraded to v15 for better JSONB/Prisma support
+    container_name: aisocialmedia_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+      - POSTGRES_DB=aisocialmedia
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
