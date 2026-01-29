@@ -1,6 +1,7 @@
 const { Pool } = require('pg');
 const { PrismaPg } = require('@prisma/adapter-pg');
 const { PrismaClient } = require('@prisma/client');
+require('dotenv').config();
 
 // 1. Create a Postgres Connection Pool
 const pool = new Pool({ 
@@ -14,13 +15,6 @@ const adapter = new PrismaPg(pool);
 // We stick to the singleton pattern for development safety
 let prisma;
 
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient({ adapter });
-} else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient({ adapter });
-  }
-  prisma = global.prisma;
-}
+prisma = new PrismaClient({ adapter });
 
 module.exports = prisma;

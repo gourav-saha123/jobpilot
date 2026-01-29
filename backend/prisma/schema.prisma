@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,20 +9,60 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
-  name      String?
+  username  String   @unique
   password  String
-  posts     Post[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  posts     Post[]
+  comments  Comment[]
+  likes     Like[]
+
+  followers UserFollowers[] @relation("followers")
+  following UserFollowers[] @relation("following")
 }
 
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  author    User     @relation(fields: [authorId], references: [id])
+  comments  Comment[]
+  likes     Like[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  postId    Int
+  authorId  Int
+  createdAt DateTime @default(now())
+
+  post      Post     @relation(fields: [postId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id])
+}
+
+model Like {
+  id      Int  @id @default(autoincrement())
+  postId  Int
+  userId  Int
+
+  post    Post @relation(fields: [postId], references: [id])
+  user    User @relation(fields: [userId], references: [id])
+
+  @@unique([postId, userId])
+}
+
+model UserFollowers {
+  followerId  Int
+  followingId Int
+
+  follower   User @relation("following", fields: [followerId], references: [id])
+  following  User @relation("followers", fields: [followingId], references: [id])
+
+  @@id([followerId, followingId])
+  @@index([followingId])
 }

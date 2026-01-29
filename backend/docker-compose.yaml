@@ -2,11 +2,9 @@ services:
   app:
     build: .
     container_name: aisocialmedia
-    # Wait for the database to be ready before starting the app
     restart: always
     depends_on:
       - db
-    # ⚠️ CRITICAL: Run migrations first, then start the server
     command: >
       sh -c "until nc -z -v -w30 db 5432; do echo 'Waiting for database...'; sleep 1; done; npx prisma migrate deploy && node src/server.js"
     environment:
