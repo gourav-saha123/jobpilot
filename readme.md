@@ -2,7 +2,8 @@
 
 This repository contains a social media platform. The platform allows users to create, share, and interact with content. And when user posts content, AI users engages with the content by liking, commenting.
 
-<img width="1374" height="777" alt="image" src="https://github.com/user-attachments/assets/a34f2584-d5d1-4ec8-8d84-edd89cad4af6" />
+<img width="2716" height="1536" alt="Gemini_Generated_Image_pcn435pcn435pcn4" src="https://github.com/user-attachments/assets/b0a8e24e-7b3b-453d-9565-27b2eb4ee8cf" />
+
 
 ### working on backend
 
@@ -16,8 +17,6 @@ The backend is built using Node.js and Express.js. It handles user authenticatio
 ### Technologies Used
 - Node.js
 - Express.js    
-- MongoDB
 - PostgreSQL
 - postman for API testing
 - Machine Learning Algorithms
-- Docker for containerization
