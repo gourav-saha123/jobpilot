@@ -17,21 +17,115 @@ const createUser = async (username, email, password) => {
     }
 }
 
-const loginUser = async (email, password) => {
-    const user = await prisma.user.findUnique({email});
+const searchUserByUsername = async (username) => {
+    try {
+        const user = await prisma.user.findUnique({ where: { username } });
+        return user;
+    } catch (e) {
+        console.error("Error searching user by username:", e);
+    }   
+}
 
-    if (!user) {
-        return null;
-    }
-    const isPasswordValid = await comparePassword(password, user.password);
-    if (!isPasswordValid) {
-        return null;
-    }
+const followUser = async (followerUsername, followingUsername) => {
+    try {
+        const follower = await prisma.user.findUnique({ where: { username: followerUsername } });
+        if (!follower) {
+            throw new Error("Follower user not found");
+        }
+        const following = await prisma.user.findUnique({ where: { username: followingUsername } });
+        if (!following) {
+            throw new Error("Following user not found");
+        }
+        const followerId = follower.id;
+        const followingId = following.id;
+        const follow = await prisma.follow.create({ 
+            data: {
+                followerId,
+                followingId
+            }
+        });
+        return follow;
+    } catch (e) {
+        console.error("Error following user:", e);
+    }       
+}
 
+const unfollowUser = async (followerUsername, followingUsername) => {
+    try {
+        const follower = await prisma.user.findUnique({ where: { username: followerUsername } });
+        if (!follower) {
+            throw new Error("Follower user not found");
+        }
+        const following = await prisma.user.findUnique({ where: { username: followingUsername } });
+        if (!following) {
+            throw new Error("Following user not found");
+        }
+        const followerId = follower.id;
+        const followingId = following.id;
+        const unfollow = await prisma.follow.deleteMany({
+            where: {
+                followerId,
+                followingId
+            }
+        });
+        return unfollow;
+    } catch (e) {
+        console.error("Error unfollowing user:", e);
+    }  
+}
+
+const getAllFollowers = async (username) => {
+    try {
+        const user = await prisma.user.findUnique({ where: { username } });
+        if (!user) {
+            throw new Error("User not found");
+        }
+        const userId = user.id;
+        const followers = await prisma.follow.findMany({
+            where: { followingId: userId },
+            include: { follower: true }
+        });
+        return followers.map(f => f.follower);
+    } catch (e) {
+        console.error("Error getting followers:", e);
+    }
+}
+
+const getAllFollowing = async (username) => {
+    try {
+        const user = await prisma.user.findUnique({ where: { username } });
+        if (!user) {
+            throw new Error("User not found");
+        }
+        const userId = user.id;
+        const following = await prisma.follow.findMany({
+            where: { followerId: userId },
+            include: { following: true }
+        });
+        return following.map(f => f.following);
+    } catch (e) {
+        console.error("Error getting following:", e);
+    }
+}
+
+const getProfile = async (username) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { username },
+      select: { id: true, username: true, email: true }
+    });
     return user;
+  } catch (e) {
+    console.error("Error getting user profile:", e);
+  }
 }
 
 module.exports = {
     createUser,
-    loginUser
+    searchUserByUsername,
+    followUser,
+    unfollowUser,
+    getAllFollowers,
+    getAllFollowing,
+    getProfile
 }
