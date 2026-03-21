@@ -2,8 +2,6 @@
 
 AI-powered job search copilot that parses your resume, finds relevant jobs, and helps you track your applications in one place.
 
----
-
 ## ✨ Features
 
 - 📄 Resume upload & parsing (extract skills, experience)
@@ -11,8 +9,6 @@ AI-powered job search copilot that parses your resume, finds relevant jobs, and 
 - 📋 Job tracking (Applied, Interview, Rejected, Offer)
 - 📝 Notes for each job
 - 📊 Clean dashboard to manage applications
-
----
 
 ## 🛠️ Tech Stack
 
@@ -22,5 +18,3 @@ AI-powered job search copilot that parses your resume, finds relevant jobs, and 
 - **Auth:** NextAuth.js  
 - **AI:** OpenAI API  
 - **Scraping:** Playwright
-
-## 📁 Project Structure
