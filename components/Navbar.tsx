@@ -18,7 +18,7 @@ const Navbar = () => {
       <div>
         <ul className='flex items-center space-x-6 text-sm font-medium text-gray-400'>
           <li>
-            <Link href="/" className='hover:text-white transition-colors duration-200'>Home</Link>
+            <Link href="/" className='hover:text-white transition-colors duration-200'>Jobs</Link>
           </li>
           {session ? (
             <li>

@@ -6,7 +6,7 @@ export default function Home() {
       <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
         Find your next <br />
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">
-          remote opportunity
+          job / opportunity
         </span>.
       </h1>
       <p className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10">

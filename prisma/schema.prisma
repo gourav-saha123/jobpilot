@@ -11,11 +11,17 @@ model User {
   id              String   @id @default(cuid())
   email           String   @unique
   name            String?
+  bio             String?
+  location        String?
   skills          String?
   qualification   String?
   department      String?
   passoutYear     String?
   experienceYears String?
+  linkedinUrl     String?
+  githubUrl       String?
+  jobType         String?  @default("Remote")
+  expectedSalary  String?
   profileComplete Boolean  @default(false)
 }
 
@@ -27,4 +33,5 @@ model Job {
   description String
   experience  String
   salary      String
+  applyUrl    String?
 }

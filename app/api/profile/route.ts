@@ -13,7 +13,19 @@ export async function PUT(req: Request) {
     }
 
     const data = await req.json()
-    const { skills, qualification, department, passoutYear, experienceYears } = data
+    const { 
+      skills, 
+      qualification, 
+      department, 
+      passoutYear, 
+      experienceYears,
+      bio,
+      location,
+      linkedinUrl,
+      githubUrl,
+      jobType,
+      expectedSalary
+    } = data
 
     const updatedUser = await prisma.user.upsert({
       where: { email: session.user.email },
@@ -23,6 +35,12 @@ export async function PUT(req: Request) {
         department,
         passoutYear,
         experienceYears,
+        bio,
+        location,
+        linkedinUrl,
+        githubUrl,
+        jobType,
+        expectedSalary,
         profileComplete: true,
       },
       create: {
@@ -33,6 +51,12 @@ export async function PUT(req: Request) {
         department,
         passoutYear,
         experienceYears,
+        bio,
+        location,
+        linkedinUrl,
+        githubUrl,
+        jobType,
+        expectedSalary,
         profileComplete: true,
       }
     })
