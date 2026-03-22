@@ -1,22 +1,20 @@
-### AI Social Media
+# JobPilot 🚀
 
-This repository contains a social media platform. The platform allows users to create, share, and interact with content. And when user posts content, AI users engages with the content by liking, commenting.
+AI-powered job search copilot that parses your resume, finds relevant jobs, and helps you track your applications in one place.
 
-<img width="2716" height="1536" alt="Gemini_Generated_Image_pcn435pcn435pcn4" src="https://github.com/user-attachments/assets/b0a8e24e-7b3b-453d-9565-27b2eb4ee8cf" />
+## ✨ Features
 
+- 📄 Resume upload & parsing (extract skills, experience)
+- 🔍 Smart job matching based on your profile
+- 📋 Job tracking (Applied, Interview, Rejected, Offer)
+- 📝 Notes for each job
+- 📊 Clean dashboard to manage applications
 
-### working on backend
+## 🛠️ Tech Stack
 
-The backend is built using Node.js and Express.js. It handles user authentication, content management, and AI interactions. The AI component is powered by machine learning algorithms that analyze user behavior to provide personalized engagement.
-
-### Features
-- User Authentication: Secure login and registration system using JWT.
-- Content Management: Users can create, edit, delete, and view posts.
-- AI Engagement: AI users automatically like, comment, and share posts based on user preferences.
-
-### Technologies Used
-- Node.js
-- Express.js    
-- PostgreSQL
-- postman for API testing
-- Machine Learning Algorithms
+- **Frontend:** Next.js, React, Tailwind CSS  
+- **Backend:** Next.js API Routes / Node.js  
+- **Database:** PostgreSQL + Prisma  
+- **Auth:** NextAuth.js  
+- **AI:** OpenAI API  
+- **Scraping:** Playwright
