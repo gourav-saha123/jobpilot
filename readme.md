@@ -1,65 +1,22 @@
-# JobPilot
+### AI Social Media
 
-JobPilot is a modern, minimalist job board platform built with Next.js. It features integrated user authentication, a dark minimal UI, PostgreSQL profiles via Prisma, and an intelligent Playwright jobs scraper that automatically fetches roles tailored to your exact skills.
+This repository contains a social media platform. The platform allows users to create, share, and interact with content. And when user posts content, AI users engages with the content by liking, commenting.
 
-## Features
-- **Modern Minimal UI**: Sleek, distrasction-free black background and unified dark aesthetic powered by Tailwind v4.
-- **Secure Authentication**: Google sign-in integrated natively with `next-auth`.
-- **User Profiles**: PostgreSQL-backed user profiles collecting dynamic skills and experience data.
-- **Automated Web Scraping**: An API route powered by **Playwright** that seamlessly searches and retrieves recommended job postings (via Hacker News Jobs) based explicitly on an individual user's skills.
+<img width="2716" height="1536" alt="Gemini_Generated_Image_pcn435pcn435pcn4" src="https://github.com/user-attachments/assets/b0a8e24e-7b3b-453d-9565-27b2eb4ee8cf" />
 
-## Technologies Used
-- Next.js (App Router)
-- React & Tailwind CSS
-- Prisma ORM & PostgreSQL
-- NextAuth.js
-- Playwright (Headless Web Scraping)
 
----
+### working on backend
 
-## How to Run Locally
+The backend is built using Node.js and Express.js. It handles user authentication, content management, and AI interactions. The AI component is powered by machine learning algorithms that analyze user behavior to provide personalized engagement.
 
-### 1. Prerequisites
-Ensure you have the following installed:
-- Node.js (v18+)
-- A local PostgreSQL database (or a remote Postgres connection string)
+### Features
+- User Authentication: Secure login and registration system using JWT.
+- Content Management: Users can create, edit, delete, and view posts.
+- AI Engagement: AI users automatically like, comment, and share posts based on user preferences.
 
-### 2. First-time Setup
-Install all dependencies (including Prisma and Playwright):
-```bash
-npm install
-npx playwright install chromium
-```
-
-### 3. Environment Variables
-Create a `.env` file in the root directory and populate it with your specific credentials:
-
-```bash
-# PostgreSQL Connection String
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/jobpilot?schema=public"
-
-# NextAuth Global Settings
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your_nextauth_secret_token"
-
-# Google OAuth Credentials
-GOOGLE_CLIENT_ID="your_google_client_id"
-GOOGLE_CLIENT_SECRET="your_google_client_secret"
-```
-
-### 4. Database Migration
-Push the Prisma schematic directly to your database:
-```bash
-npx prisma db push
-```
-
-### 5. Running the Application
-Start the Next.js development server:
-```bash
-npm run dev
-```
-
-The application will be live at `http://localhost:3000`. 
-- **Login**: Use your Google Account.
-- **Profile**: You'll be prompted to complete your profile with your specific skills.
-- **Scraping**: Once your profile is complete, navigate to the Jobs section and click "Find Matches" to activate the Playwright scraper!
+### Technologies Used
+- Node.js
+- Express.js    
+- PostgreSQL
+- postman for API testing
+- Machine Learning Algorithms
