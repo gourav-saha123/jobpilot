@@ -27,30 +27,12 @@ export default function JobsPage() {
   const findJobs = async () => {
     setLoading(true)
     setJobs([])
-    setStatusMessage("Initializing discovery...")
+    setStatusMessage("Finding best matches...")
     try {
       const res = await fetch("/api/jobs/scrape")
-      const reader = res.body?.getReader()
-      if (!reader) throw new Error("No reader")
-
-      const decoder = new TextDecoder()
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-
-        const chunk = decoder.decode(value)
-        const lines = chunk.split("\n").filter(Boolean)
-        
-        for (const line of lines) {
-          try {
-            const data = JSON.parse(line)
-            if (data.status) setStatusMessage(data.status)
-            if (data.jobs) setJobs(data.jobs)
-          } catch (e) {
-            console.warn("Parse error in stream", e)
-          }
-        }
-      }
+      const data = await res.json()
+      if (data.jobs) setJobs(data.jobs)
+      if (data.error) alert(data.error)
     } catch (err) {
       console.error(err)
       alert("Error finding jobs")
